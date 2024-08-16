@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "662245149605",
+    "project_id": "apnakhet-c127e",
+    "storage_bucket": "apnakhet-c127e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662245149605:android:43376725caa956a2fa364c",
+        "android_client_info": {
+          "package_name": "com.example.apnakhet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI8FXFXXtHo5Pwjj4dwkoTDynuSF5AUzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
