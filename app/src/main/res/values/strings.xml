@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ApnaKhet</string>
+    <string name="detect">Detect</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
 </resources>
