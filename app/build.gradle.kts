@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+//    id("kotlin-android-extensions")
+//    id("kotlin-kapt")
 }
 
 android {
@@ -12,6 +14,7 @@ android {
         applicationId = "com.example.apnakhet"
         minSdk = 25
         targetSdk = 34
+        multiDexEnabled = true
         versionCode = 1
         versionName = "1.0"
 
@@ -37,6 +40,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+//    aaptOptions {
+//        noCompress "tfLite"
+//    }
+
     buildFeatures {
         compose = true
     }
@@ -65,6 +73,9 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore:25.0.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.2")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
@@ -73,4 +84,19 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("androidx.compose.runtime:runtime-livedata:1.6.8")
+
+
+    //dependencies - 7:30 1st tensor
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.navigation:navigation-fragment:2.7.7")
+    implementation("androidx.navigation:navigation-ui:2.7.7")
+    implementation("com.android.support:multidex:1.0.3")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    releaseImplementation("com.infideap.drawerbehavior:drawer_behavior:1.0.1")
+
+//    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
+//    implementation("com.github.razir.progressbutton:progressbutton:2.1.0")
+
+
 }

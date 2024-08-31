@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:theme="@style/ThemeOverlay.AppCompat">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/teal_700" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        android:background="#dddfd1"
+        android:elevation="3dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="18dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="1330dp"
+            android:background="#e3e1e6">
+
+
+            <!--            Image Display       -->
+            <ImageView
+                android:id="@+id/mPhotoImageView"
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+
+                android:contentDescription="View Display Image"
+                android:scaleType="fitXY"
+                android:src="@drawable/cambg"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="34dp" />
+
+            <!--                android:paddingBottom="22dp"-->
+
+
+            <!--            Detect Button       -->
+            <Button
+                android:id="@+id/mDetectButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/custom_button"
+                android:padding="10dp"
+                android:text="@string/detect"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toTopOf="@+id/mResultTextView"
+                app:layout_constraintEnd_toStartOf="@+id/mCamaraButton"
+                app:layout_constraintHorizontal_bias="0.135"
+                app:layout_constraintStart_toEndOf="@+id/mGalleryButton"
+                app:layout_constraintTop_toBottomOf="@+id/mPhotoImageView"
+                app:layout_constraintVertical_bias="0.325" />
+
+            <!--            Gallery button          -->
+            <Button
+                android:id="@+id/mGalleryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:background="@drawable/custom_button"
+
+                android:text="@string/gallery"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toTopOf="@id/mResultTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mPhotoImageView"
+                app:layout_constraintVertical_bias="0.325" />
+
+            <!--        Camera button            -->
+            <Button
+                android:id="@+id/mCamaraButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+
+                android:background="@drawable/custom_button"
+                android:text="@string/camera"
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.868"
+                app:layout_constraintStart_toEndOf="@+id/mGalleryButton"
+                app:layout_constraintTop_toBottomOf="@+id/mPhotoImageView" />
+
+
+
+            <TextView
+                android:id="@+id/mResultTextView"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                android:shadowColor="@color/black"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mPhotoImageView"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
