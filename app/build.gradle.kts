@@ -100,6 +100,12 @@ dependencies {
 //    implementation "com.squareup.retrofit2:retrofit:2.9.0"//WHETHER API
 //   implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
+    implementation("io.coil-kt:coil-compose:1.4.0")
 
+    val composeBom = platform("androidx.compose:compose-bom:2024.09.00")
+    implementation(composeBom)
+
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.ui:ui-tooling-preview")
 
 }

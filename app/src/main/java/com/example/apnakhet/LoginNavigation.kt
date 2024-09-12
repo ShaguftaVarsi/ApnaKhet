@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.apnakhet.AuthViewModel
 import com.example.apnakhet.FertilizerCalculator
+import com.example.apnakhet.imageCaptureFromCamera
 import com.example.apnakhet.login.HomePage
 import com.example.apnakhet.login.LoginPage
 import com.example.apnakhet.login.SignupPage
@@ -25,6 +26,11 @@ fun LoginNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel)
         composable("home") {
             HomePage(modifier, navController, authViewModel)
         }
+
+        composable("camera") {
+            imageCaptureFromCamera()
+        }
+
         composable("fertilizerCalculator") {
             FertilizerCalculator(navController)
         }
