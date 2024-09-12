@@ -12,6 +12,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.runtime.*
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -207,4 +212,47 @@ fun OptionCard(iconRes: Int, title: String) {
         }
     }
 }
+@Composable
+fun BottomNavigationBar(navController: NavController) {
+    val items = listOf(
+        BottomNavItem.YourCrops,
+        BottomNavItem.Community,
+        BottomNavItem.Dukaan,
+        BottomNavItem.You
+    )
 
+    NavigationBar(
+        containerColor = Color(0xFFE0F2F1) // Background color similar to the image
+    ) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentDestination = navBackStackEntry?.destination
+
+        items.forEach { item ->
+            NavigationBarItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = item.icon),
+                        contentDescription = item.title
+                    )
+                },
+                label = { Text(text = item.title) },
+                selected = currentDestination?.route == item.route,
+                onClick = {
+                    navController.navigate(item.route) {
+                        // Handle navigation stack and ensure a single instance of the screen
+                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            )
+        }
+    }
+}
+
+sealed class BottomNavItem(val route: String, val icon: Int, val title: String) {
+    object YourCrops : BottomNavItem("your_crops", R.drawable.handwash, "Your Crops")
+    object Community : BottomNavItem("community", R.drawable.handwash, "Community")
+    object Dukaan : BottomNavItem("dukaan", R.drawable.handwash, "Dukaan")
+    object You : BottomNavItem("you", R.drawable.handwash, "You")
+}
