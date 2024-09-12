@@ -76,6 +76,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.room:room-common:2.6.1")
+    implementation("androidx.test.espresso:espresso-core:3.6.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
@@ -97,8 +99,15 @@ dependencies {
 
 //    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
 //    implementation("com.github.razir.progressbutton:progressbutton:2.1.0")
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"//WHETHER API
-    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+//    implementation "com.squareup.retrofit2:retrofit:2.9.0"//WHETHER API
+//    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+
+    implementation("androidx.compose.material:material-*:1.8.0-alpha01")
+        implementation("androidx.compose.material3:material3:1.3.0")
+        implementation("androidx.compose.material3:material3-window-size-class:1.3.0")
+        implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.0")
+
+
 
 
 
