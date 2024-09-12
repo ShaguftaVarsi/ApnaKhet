@@ -127,7 +127,7 @@ fun HealingOptionsSection() {
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_multiline_chart_black_24dp), //take picture wala pic heal your crop ke niche
+                        painter = painterResource(id = R.drawable.twemoji__fallen_leaf), //take picture wala pic heal your crop ke niche
                         contentDescription = "Take a picture",
                         modifier = Modifier.size(48.dp)
                     )
@@ -136,7 +136,7 @@ fun HealingOptionsSection() {
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.handwash), // mobile ka icon
+                        painter = painterResource(id = R.drawable.fluent_emoji_flat__mobile_phone), // mobile ka icon
                         contentDescription = "See diagnosis",
                         modifier = Modifier.size(48.dp)
                     )
@@ -144,7 +144,7 @@ fun HealingOptionsSection() {
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.handwash), // bottle ka icon
+                        painter = painterResource(id = R.drawable.twemoji__lotion_bottle), // bottle ka icon
                         contentDescription = "Get medicine",
                         modifier = Modifier.size(48.dp)
                     )
@@ -204,12 +204,12 @@ fun OptionsGridSection(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             OptionCard(
-                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+                iconRes = R.drawable.emojione_v1__pocket_calculator,
                 title = "Fertilizer calculator",
                 onClick = { navController.navigate("fertilizerCalculator") }
             )
             OptionCard(
-                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+                iconRes = R.drawable.noto_v1__bug,
                 title = "Pests & diseases",
                 onClick = { navController.navigate("pestsDiseases") }
             )
@@ -222,12 +222,12 @@ fun OptionsGridSection(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             OptionCard(
-                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+                iconRes = R.drawable.noto_v1__light_bulb,
                 title = "Cultivation Tips",
                 onClick = { navController.navigate("cultivationTips") }
             )
             OptionCard(
-                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+                iconRes = R.drawable.line_md__alert_twotone_loop,
                 title = "Pests and Disease Alerts",
                 onClick = { navController.navigate("diseaseAlerts") }
             )
