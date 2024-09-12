@@ -1,15 +1,13 @@
 package com.example.apnakhet.login
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.layout.padding
@@ -64,7 +62,7 @@ fun HomePage(
         Spacer(modifier = Modifier.height(24.dp))
 
         // Other options like Fertilizer, Pests & diseases, Cultivation, etc.
-        OptionsGridSection()
+        OptionsGridSection(navController)
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -129,23 +127,24 @@ fun HealingOptionsSection() {
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.twemoji__fallen_leaf), //take picture wala pic heal your crop ke niche
+                        painter = painterResource(id = R.drawable.ic_multiline_chart_black_24dp), //take picture wala pic heal your crop ke niche
                         contentDescription = "Take a picture",
                         modifier = Modifier.size(48.dp)
                     )
-                    Text(text = "Take a picture", fontSize = 12.sp)
+                    Text(text = "Take a picture", fontSize = 12.sp, modifier = Modifier.padding(end = 16.dp))
+
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.fluent_emoji_flat__mobile_phone), // mobile ka icon
+                        painter = painterResource(id = R.drawable.handwash), // mobile ka icon
                         contentDescription = "See diagnosis",
                         modifier = Modifier.size(48.dp)
                     )
-                    Text(text = "See diagnosis", fontSize = 12.sp)
+                    Text(text = "See diagnosis", fontSize = 12.sp, modifier = Modifier.padding(end = 16.dp))
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.twemoji__lotion_bottle), // bottle ka icon
+                        painter = painterResource(id = R.drawable.handwash), // bottle ka icon
                         contentDescription = "Get medicine",
                         modifier = Modifier.size(48.dp)
                     )
@@ -163,7 +162,38 @@ fun HealingOptionsSection() {
 }
 
 @Composable
-fun OptionsGridSection() {
+fun OptionCard(
+    iconRes: Int,
+    title: String,
+    onClick: () -> Unit // This lambda function will be called when the card is clicked
+) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier
+            .size(160.dp)
+            .padding(8.dp)
+            .clickable(onClick = onClick), // Adds clickable functionality with the given lambda
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp), // Add padding inside the card for better spacing
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                painter = painterResource(id = iconRes),
+                contentDescription = title,
+                modifier = Modifier.size(48.dp)
+            )
+            Text(text = title, fontSize = 14.sp)
+        }
+    }
+}
+
+@Composable
+fun OptionsGridSection(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -173,8 +203,16 @@ fun OptionsGridSection() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OptionCard(iconRes = R.drawable.emojione_v1__pocket_calculator, title = "Fertilizer calculator") // fertilizer ka icon
-            OptionCard(iconRes = R.drawable.noto_v1__bug, title = "Pests & diseases") // pest ka icon
+            OptionCard(
+                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+                title = "Fertilizer calculator",
+                onClick = { navController.navigate("fertilizerCalculator") }
+            )
+            OptionCard(
+                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+                title = "Pests & diseases",
+                onClick = { navController.navigate("pestsDiseases") }
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -183,8 +221,16 @@ fun OptionsGridSection() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OptionCard(iconRes = R.drawable.noto_v1__light_bulb, title = "Cultivation Tips")  //cultivation ka icon
-            OptionCard(iconRes = R.drawable.line_md__alert_twotone_loop, title = "Pests and Disease Alerts") // warning icon
+            OptionCard(
+                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+                title = "Cultivation Tips",
+                onClick = { navController.navigate("cultivationTips") }
+            )
+            OptionCard(
+                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+                title = "Pests and Disease Alerts",
+                onClick = { navController.navigate("diseaseAlerts") }
+            )
         }
     }
 }
@@ -251,7 +297,7 @@ fun BottomNavigationBar(navController: NavController) {
 }
 
 sealed class BottomNavItem(val route: String, val icon: Int, val title: String) {
-    object YourCrops : BottomNavItem("your_crops", R.drawable.custom_button, "Your Crops")
+    object YourCrops : BottomNavItem("your_crops", R.drawable.handwash, "Your Crops")
     object Community : BottomNavItem("community", R.drawable.handwash, "Community")
     object Dukaan : BottomNavItem("dukaan", R.drawable.handwash, "Dukaan")
     object You : BottomNavItem("you", R.drawable.handwash, "You")
