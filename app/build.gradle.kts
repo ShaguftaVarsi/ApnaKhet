@@ -62,7 +62,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
-    implementation("androidx.activity:activity-compose:1.9.0")
+    implementation("androidx.activity:activity-compose:1.9.1")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -93,7 +93,7 @@ dependencies {
     implementation("com.android.support:multidex:1.0.3")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    releaseImplementation("com.infideap.drawerbehavior:drawer_behavior:1.0.1")
+//    implementation("com.infideap.drawerbehavior:drawer_behavior:1.0.1")
 
 //    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
 //    implementation("com.github.razir.progressbutton:progressbutton:2.1.0")

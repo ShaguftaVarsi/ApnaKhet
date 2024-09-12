@@ -3,4 +3,5 @@
     <string name="detect">Detect</string>
     <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>
+    <string name="view_display_image">View Display Image</string>
 </resources>

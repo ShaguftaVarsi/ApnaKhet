@@ -4,6 +4,7 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
         maven { url = uri("https://dl.bintray.com/infideap2/Drawer-Behavior") }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 dependencyResolutionManagement {
