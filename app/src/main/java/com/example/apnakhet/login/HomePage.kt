@@ -129,7 +129,7 @@ fun HealingOptionsSection() {
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_multiline_chart_black_24dp), //take picture wala pic heal your crop ke niche
+                        painter = painterResource(id = R.drawable.twemoji__fallen_leaf), //take picture wala pic heal your crop ke niche
                         contentDescription = "Take a picture",
                         modifier = Modifier.size(48.dp)
                     )
@@ -137,7 +137,7 @@ fun HealingOptionsSection() {
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.handwash), // mobile ka icon
+                        painter = painterResource(id = R.drawable.fluent_emoji_flat__mobile_phone), // mobile ka icon
                         contentDescription = "See diagnosis",
                         modifier = Modifier.size(48.dp)
                     )
@@ -145,7 +145,7 @@ fun HealingOptionsSection() {
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.handwash), // bottle ka icon
+                        painter = painterResource(id = R.drawable.twemoji__lotion_bottle), // bottle ka icon
                         contentDescription = "Get medicine",
                         modifier = Modifier.size(48.dp)
                     )
@@ -173,8 +173,8 @@ fun OptionsGridSection() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OptionCard(iconRes = R.drawable.handwash, title = "Fertilizer calculator") // fertilizer ka icon
-            OptionCard(iconRes = R.drawable.handwash, title = "Pests & diseases") // pest ka icon
+            OptionCard(iconRes = R.drawable.emojione_v1__pocket_calculator, title = "Fertilizer calculator") // fertilizer ka icon
+            OptionCard(iconRes = R.drawable.noto_v1__bug, title = "Pests & diseases") // pest ka icon
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -183,8 +183,8 @@ fun OptionsGridSection() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OptionCard(iconRes = R.drawable.handwash, title = "Cultivation Tips")  //cultivation ka icon
-            OptionCard(iconRes = R.drawable.handwash, title = "Pests and Disease Alerts") // warning icon
+            OptionCard(iconRes = R.drawable.noto_v1__light_bulb, title = "Cultivation Tips")  //cultivation ka icon
+            OptionCard(iconRes = R.drawable.line_md__alert_twotone_loop, title = "Pests and Disease Alerts") // warning icon
         }
     }
 }
@@ -251,7 +251,7 @@ fun BottomNavigationBar(navController: NavController) {
 }
 
 sealed class BottomNavItem(val route: String, val icon: Int, val title: String) {
-    object YourCrops : BottomNavItem("your_crops", R.drawable.handwash, "Your Crops")
+    object YourCrops : BottomNavItem("your_crops", R.drawable.custom_button, "Your Crops")
     object Community : BottomNavItem("community", R.drawable.handwash, "Community")
     object Dukaan : BottomNavItem("dukaan", R.drawable.handwash, "Dukaan")
     object You : BottomNavItem("you", R.drawable.handwash, "You")
