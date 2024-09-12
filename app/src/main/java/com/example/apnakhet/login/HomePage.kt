@@ -204,12 +204,20 @@ fun OptionsGridSection(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             OptionCard(
+<<<<<<< HEAD
                 iconRes = R.drawable.emojione_v1__pocket_calculator,
+=======
+                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+>>>>>>> 99f08b32b17516150b22aa8826dea42f05c80bd5
                 title = "Fertilizer calculator",
                 onClick = { navController.navigate("fertilizerCalculator") }
             )
             OptionCard(
+<<<<<<< HEAD
                 iconRes = R.drawable.noto_v1__bug,
+=======
+                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+>>>>>>> 99f08b32b17516150b22aa8826dea42f05c80bd5
                 title = "Pests & diseases",
                 onClick = { navController.navigate("pestsDiseases") }
             )
@@ -222,12 +230,20 @@ fun OptionsGridSection(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             OptionCard(
+<<<<<<< HEAD
                 iconRes = R.drawable.noto_v1__light_bulb,
+=======
+                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+>>>>>>> 99f08b32b17516150b22aa8826dea42f05c80bd5
                 title = "Cultivation Tips",
                 onClick = { navController.navigate("cultivationTips") }
             )
             OptionCard(
+<<<<<<< HEAD
                 iconRes = R.drawable.line_md__alert_twotone_loop,
+=======
+                iconRes = R.drawable.ic_multiline_chart_black_24dp,
+>>>>>>> 99f08b32b17516150b22aa8826dea42f05c80bd5
                 title = "Pests and Disease Alerts",
                 onClick = { navController.navigate("diseaseAlerts") }
             )
