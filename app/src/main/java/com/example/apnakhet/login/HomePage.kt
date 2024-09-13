@@ -302,12 +302,20 @@ fun OptionsGridSection(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             OptionCard(
+
                 iconRes = R.drawable.ic_calculator_thin,
+
+                iconRes = R.drawable.emojione_v1__pocket_calculator,
+
                 title = "Fertilizer calculator",
                 onClick = { navController.navigate("fertilizerCalculator") }
             )
             OptionCard(
+
                 iconRes = R.drawable.ic_bug_light,
+
+                iconRes = R.drawable.noto_v1__bug,
+
                 title = "Pests & diseases",
                 onClick = { navController.navigate("pestsDiseases") }
             )
@@ -320,12 +328,20 @@ fun OptionsGridSection(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             OptionCard(
+
                 iconRes = R.drawable.ic_light_bulb_tips,
+
+                iconRes = R.drawable.noto_v1__light_bulb,
+
                 title = "Cultivation Tips",
                 onClick = { navController.navigate("cultivationTips") }
             )
             OptionCard(
+
                 iconRes = R.drawable.ic_light_warning,
+
+                iconRes = R.drawable.line_md__alert_twotone_loop,
+
                 title = "Pests and Disease Alerts",
                 onClick = { navController.navigate("diseaseAlerts") }
             )
