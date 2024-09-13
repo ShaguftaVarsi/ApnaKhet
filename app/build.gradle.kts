@@ -99,16 +99,27 @@ dependencies {
 
 //    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
 //    implementation("com.github.razir.progressbutton:progressbutton:2.1.0")
+
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"//WHETHER API
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+
 //    implementation "com.squareup.retrofit2:retrofit:2.9.0"//WHETHER API
 //    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
     implementation("androidx.compose.material:material-*:1.8.0-alpha01")
-        implementation("androidx.compose.material3:material3:1.3.0")
-        implementation("androidx.compose.material3:material3-window-size-class:1.3.0")
-        implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.0")
+    implementation("androidx.compose.material3:material3:1.3.0")
+    implementation("androidx.compose.material3:material3-window-size-class:1.3.0")
+    implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.0")
 
 
 
 
+    implementation("io.coil-kt:coil-compose:1.4.0")
+
+    val composeBom = platform("androidx.compose:compose-bom:2024.09.00")
+    implementation(composeBom)
+
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.ui:ui-tooling-preview")
 
 }

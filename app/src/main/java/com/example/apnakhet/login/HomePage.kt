@@ -31,6 +31,23 @@ import androidx.navigation.NavController
 import com.example.apnakhet.AuthState
 import com.example.apnakhet.AuthViewModel
 import com.example.apnakhet.R
+import com.example.apnakhet.imageCaptureFromCamera
+import androidx.core.content.ContextCompat
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.FileProvider
+import coil.compose.rememberImagePainter
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Objects
 
 @Composable
 fun HomePage(
@@ -109,6 +126,61 @@ fun WeatherSection() {
 
 @Composable
 fun HealingOptionsSection() {
+
+    val context = LocalContext.current
+    val file = context.createImageFile()
+    val uri = FileProvider.getUriForFile(
+        Objects.requireNonNull(context),
+        context.packageName + ".provider", file
+    )
+
+    var capturedImageUri by remember {
+        mutableStateOf<Uri>(Uri.EMPTY)
+    }
+
+
+    var cameraLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()){
+            capturedImageUri = uri
+        }
+
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ){
+        if (it)
+        {
+            Toast.makeText(context, "Permission Granted", Toast.LENGTH_SHORT).show()
+            cameraLauncher.launch(uri)
+        }
+        else
+        {
+            Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
+
+    if (capturedImageUri.path?.isNotEmpty() == true)
+    {
+        Image(
+            modifier = Modifier
+                .padding(16.dp, 8.dp),
+            painter = rememberImagePainter(capturedImageUri),
+            contentDescription = null
+        )
+    }
+    else
+    {
+        Image(
+            modifier = Modifier
+                .padding(16.dp, 8.dp),
+            painter = painterResource(id = R.drawable.noto_v1__bug),
+            contentDescription = null
+        )
+    }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -127,7 +199,7 @@ fun HealingOptionsSection() {
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.twemoji__fallen_leaf), //take picture wala pic heal your crop ke niche
+                        painter = painterResource(id = R.drawable.ic_leafpic), //take picture wala pic heal your crop ke niche
                         contentDescription = "Take a picture",
                         modifier = Modifier.size(48.dp)
                     )
@@ -136,7 +208,7 @@ fun HealingOptionsSection() {
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.fluent_emoji_flat__mobile_phone), // mobile ka icon
+                        painter = painterResource(id = R.drawable.ic_light_mobile), // mobile ka icon
                         contentDescription = "See diagnosis",
                         modifier = Modifier.size(48.dp)
                     )
@@ -144,7 +216,7 @@ fun HealingOptionsSection() {
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
-                        painter = painterResource(id = R.drawable.twemoji__lotion_bottle), // bottle ka icon
+                        painter = painterResource(id = R.drawable.ic_spray_bottle_thin), // bottle ka icon
                         contentDescription = "Get medicine",
                         modifier = Modifier.size(48.dp)
                     )
@@ -154,12 +226,38 @@ fun HealingOptionsSection() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(onClick = { /* TODO: Implement camera action */ }) {
+
+            Button(onClick = {
+                val permissionCheckResult =
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
+
+                if (permissionCheckResult == PackageManager.PERMISSION_GRANTED)
+                {
+                    cameraLauncher.launch(uri)
+                }
+                else
+                {
+                    permissionLauncher.launch(Manifest.permission.CAMERA)
+                }
+            }) {
                 Text(text = "Take a picture")
             }
         }
     }
 }
+
+fun Context.createImageFile(): File {
+    val timeStamp = SimpleDateFormat("yyyy_MM_dd_HH:mm:ss").format(Date())
+    val imageFileName = "JPEG_" + timeStamp + "_"
+    val image = File.createTempFile(
+        imageFileName,
+        ".jpg",
+        externalCacheDir
+    )
+
+    return image
+}
+
 
 @Composable
 fun OptionCard(
@@ -204,12 +302,20 @@ fun OptionsGridSection(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             OptionCard(
+
+                iconRes = R.drawable.ic_calculator_thin,
+
                 iconRes = R.drawable.emojione_v1__pocket_calculator,
+
                 title = "Fertilizer calculator",
                 onClick = { navController.navigate("fertilizerCalculator") }
             )
             OptionCard(
+
+                iconRes = R.drawable.ic_bug_light,
+
                 iconRes = R.drawable.noto_v1__bug,
+
                 title = "Pests & diseases",
                 onClick = { navController.navigate("pestsDiseases") }
             )
@@ -222,12 +328,20 @@ fun OptionsGridSection(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             OptionCard(
+
+                iconRes = R.drawable.ic_light_bulb_tips,
+
                 iconRes = R.drawable.noto_v1__light_bulb,
+
                 title = "Cultivation Tips",
                 onClick = { navController.navigate("cultivationTips") }
             )
             OptionCard(
+
+                iconRes = R.drawable.ic_light_warning,
+
                 iconRes = R.drawable.line_md__alert_twotone_loop,
+
                 title = "Pests and Disease Alerts",
                 onClick = { navController.navigate("diseaseAlerts") }
             )
