@@ -88,7 +88,6 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.6.8")
 
 
-    //dependencies - 7:30 1st tensor
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.navigation:navigation-fragment:2.7.7")
     implementation("androidx.navigation:navigation-ui:2.7.7")
@@ -100,19 +99,11 @@ dependencies {
 //    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
 //    implementation("com.github.razir.progressbutton:progressbutton:2.1.0")
 
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"//WHETHER API
-    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
-//    implementation "com.squareup.retrofit2:retrofit:2.9.0"//WHETHER API
-//    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-
-    implementation("androidx.compose.material:material-*:1.8.0-alpha01")
+//    implementation("androidx.compose.material:material:1.8.0-alpha01")
     implementation("androidx.compose.material3:material3:1.3.0")
     implementation("androidx.compose.material3:material3-window-size-class:1.3.0")
     implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.3.0")
-
-
-
 
     implementation("io.coil-kt:coil-compose:1.4.0")
 
@@ -121,5 +112,13 @@ dependencies {
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.compose.ui:ui-tooling-preview")
+
+    // weather API
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("androidx.compose.ui:ui:1.7.1") // Jetpack Compose dependency
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5")
+    implementation("androidx.navigation:navigation-common:2.8.0")
 
 }

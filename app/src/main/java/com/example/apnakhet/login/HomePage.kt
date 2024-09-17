@@ -31,7 +31,6 @@ import androidx.navigation.NavController
 import com.example.apnakhet.AuthState
 import com.example.apnakhet.AuthViewModel
 import com.example.apnakhet.R
-import com.example.apnakhet.imageCaptureFromCamera
 import androidx.core.content.ContextCompat
 import android.Manifest
 import android.content.Context
@@ -43,7 +42,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.FileProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
+import com.example.apnakhet.Weather.WeatherViewModel
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -68,15 +69,16 @@ fun HomePage(
     Column(
         modifier.fillMaxSize(), Arrangement.Top, Alignment.CenterHorizontally
     ) {
-        // Weather and location
-        WeatherSection()
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         // Healing options
         HealingOptionsSection()
 
         Spacer(modifier = Modifier.height(24.dp))
+
+        // Weather and location
+        WeatherSection()
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Other options like Fertilizer, Pests & diseases, Cultivation, etc.
         OptionsGridSection(navController)
@@ -92,8 +94,48 @@ fun HomePage(
     }
 }
 
+//@Composable
+//fun WeatherSection() {
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(16.dp),
+//        horizontalArrangement = Arrangement.SpaceBetween,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//        // Location and weather info { /* TODO: Implement Weather API */ }
+//
+//        Column {
+//            Text(text = "Panvel, 13 Sep", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+//            Text(text = "Rain - 25°C / 30°C", fontSize = 14.sp)
+//        }
+//
+//        // Weather icon and spraying status
+//        Column(horizontalAlignment = Alignment.End) {
+//            Text(text = "29°C", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+//
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Icon(
+//                    imageVector = Icons.Filled.Warning,
+//                    contentDescription = "Unfavorable spraying condition",
+//                    tint = Color.Red
+//                )
+//                Text(text = "Unfavorable", fontSize = 14.sp, color = Color.Red)
+//            }
+//        }
+//    }
+//}
+
 @Composable
 fun WeatherSection() {
+    val viewModel: WeatherViewModel = viewModel()
+    val weatherData by viewModel.weatherData.collectAsState()
+//    val errorMessage = viewModel.errorMessage
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchWeather(city = "Panvel", apiKey = "e46206c5656ba87110dc8909211896ca") // Add your actual API key here
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -101,28 +143,45 @@ fun WeatherSection() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Location and weather info { /* TODO: Implement Weather API */ }
-
-        Column {
-            Text(text = "Shivkar, 12 Sep", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-            Text(text = "Rain - 25°C / 29°C", fontSize = 14.sp)
-        }
-
-        // Weather icon and spraying status
-        Column(horizontalAlignment = Alignment.End) {
-            Text(text = "29°C", fontSize = 24.sp, fontWeight = FontWeight.Bold)
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Filled.Warning,
-                    contentDescription = "Unfavorable spraying condition",
-                    tint = Color.Red
-                )
-                Text(text = "Unfavorable", fontSize = 14.sp, color = Color.Red)
+        // Location and weather info
+        weatherData?.let { weather ->
+            Column {
+                Text(text = "${weather.name}, Today", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(text = "Rain - ${weather.main.temp_min}°C / ${weather.main.temp_max}°C", fontSize = 14.sp)
             }
+
+            Column(horizontalAlignment = Alignment.End) {
+                Text(text = "${weather.main.temp}°C", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+
+                Text(
+                    text = "Spraying Conditions",
+                    fontSize = 14.sp
+                )
+
+                // Adjust condition based on weather (e.g., unfavorable spraying status)
+                val unfavorableCondition = weather.main.temp > 28 // Example condition
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Filled.Warning,
+                        contentDescription = if (unfavorableCondition) "Unfavorable spraying condition" else "Favorable condition",
+                        tint = if (unfavorableCondition) Color.Red else Color.Green
+                    )
+
+
+                    Text(
+                        text = if (unfavorableCondition) "Unfavorable" else "Favorable",
+                        fontSize = 14.sp,
+                        color = if (unfavorableCondition) Color.Red else Color.Green
+                    )
+                }
+            }
+        } ?: run {
+            Text(text = "Error", color = Color.Red)
         }
     }
 }
+
+
 
 @Composable
 fun HealingOptionsSection() {
@@ -345,70 +404,70 @@ fun OptionsGridSection(navController: NavController) {
     }
 }
 
-@Composable
-fun OptionCard(iconRes: Int, title: String) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        modifier = Modifier
-            .size(160.dp)
-            .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                painter = painterResource(id = iconRes),
-                contentDescription = title,
-                modifier = Modifier.size(48.dp)
-            )
-            Text(text = title, fontSize = 14.sp)
-        }
-    }
-}
-@Composable
-fun BottomNavigationBar(navController: NavController) {
-    val items = listOf(
-        BottomNavItem.YourCrops,
-        BottomNavItem.Community,
-        BottomNavItem.Dukaan,
-        BottomNavItem.You
-    )
-
-    NavigationBar(
-        containerColor = Color(0xFFE0F2F1) // Background color similar to the image
-    ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentDestination = navBackStackEntry?.destination
-
-        items.forEach { item ->
-            NavigationBarItem(
-                icon = {
-                    Icon(
-                        painter = painterResource(id = item.icon),
-                        contentDescription = item.title
-                    )
-                },
-                label = { Text(text = item.title) },
-                selected = currentDestination?.route == item.route,
-                onClick = {
-                    navController.navigate(item.route) {
-                        // Handle navigation stack and ensure a single instance of the screen
-                        popUpTo(navController.graph.startDestinationId) { saveState = true }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                }
-            )
-        }
-    }
-}
-
-sealed class BottomNavItem(val route: String, val icon: Int, val title: String) {
-    object YourCrops : BottomNavItem("your_crops", R.drawable.handwash, "Your Crops")
-    object Community : BottomNavItem("community", R.drawable.handwash, "Community")
-    object Dukaan : BottomNavItem("dukaan", R.drawable.handwash, "Dukaan")
-    object You : BottomNavItem("you", R.drawable.handwash, "You")
-}
+//@Composable
+//fun OptionCard(iconRes: Int, title: String) {
+//    Card(
+//        shape = RoundedCornerShape(16.dp),
+//        modifier = Modifier
+//            .size(160.dp)
+//            .padding(8.dp),
+//        colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))
+//    ) {
+//        Column(
+//            modifier = Modifier.fillMaxSize(),
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            Icon(
+//                painter = painterResource(id = iconRes),
+//                contentDescription = title,
+//                modifier = Modifier.size(48.dp)
+//            )
+//            Text(text = title, fontSize = 14.sp)
+//        }
+//    }
+//}
+//@Composable
+//fun BottomNavigationBar(navController: NavController) {
+//    val items = listOf(
+//        BottomNavItem.YourCrops,
+//        BottomNavItem.Community,
+//        BottomNavItem.Dukaan,
+//        BottomNavItem.You
+//    )
+//
+//    NavigationBar(
+//        containerColor = Color(0xFFE0F2F1) // Background color similar to the image
+//    ) {
+//        val navBackStackEntry by navController.currentBackStackEntryAsState()
+//        val currentDestination = navBackStackEntry?.destination
+//
+//        items.forEach { item ->
+//            NavigationBarItem(
+//                icon = {
+//                    Icon(
+//                        painter = painterResource(id = item.icon),
+//                        contentDescription = item.title
+//                    )
+//                },
+//                label = { Text(text = item.title) },
+//                selected = currentDestination?.route == item.route,
+//                onClick = {
+//                    navController.navigate(item.route) {
+//                        // Handle navigation stack and ensure a single instance of the screen
+//                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+//                        launchSingleTop = true
+//                        restoreState = true
+//                    }
+//                }
+//            )
+//        }
+//    }
+//}
+//
+//sealed class BottomNavItem(val route: String, val icon: Int, val title: String) {
+//    object YourCrops : BottomNavItem("your_crops", R.drawable.handwash, "Your Crops")
+//    object Community : BottomNavItem("community", R.drawable.handwash, "Community")
+//    object Dukaan : BottomNavItem("dukaan", R.drawable.handwash, "Dukaan")
+//    object You : BottomNavItem("you", R.drawable.handwash, "You")
+//}
