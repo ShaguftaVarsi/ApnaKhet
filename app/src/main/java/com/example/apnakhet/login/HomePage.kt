@@ -94,37 +94,6 @@ fun HomePage(
     }
 }
 
-//@Composable
-//fun WeatherSection() {
-//    Row(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(16.dp),
-//        horizontalArrangement = Arrangement.SpaceBetween,
-//        verticalAlignment = Alignment.CenterVertically
-//    ) {
-//        // Location and weather info { /* TODO: Implement Weather API */ }
-//
-//        Column {
-//            Text(text = "Panvel, 13 Sep", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-//            Text(text = "Rain - 25°C / 30°C", fontSize = 14.sp)
-//        }
-//
-//        // Weather icon and spraying status
-//        Column(horizontalAlignment = Alignment.End) {
-//            Text(text = "29°C", fontSize = 24.sp, fontWeight = FontWeight.Bold)
-//
-//            Row(verticalAlignment = Alignment.CenterVertically) {
-//                Icon(
-//                    imageVector = Icons.Filled.Warning,
-//                    contentDescription = "Unfavorable spraying condition",
-//                    tint = Color.Red
-//                )
-//                Text(text = "Unfavorable", fontSize = 14.sp, color = Color.Red)
-//            }
-//        }
-//    }
-//}
 
 @Composable
 fun WeatherSection() {
