@@ -1,5 +1,8 @@
 package com.example.apnakhet.login
-
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,10 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
+
 import androidx.compose.runtime.*
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,11 +41,21 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.FileProvider
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 import com.example.apnakhet.Weather.WeatherViewModel
+import com.example.apnakhet.youtube.YouTubeViewModel
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -67,7 +78,10 @@ fun HomePage(
     }
 
     Column(
-        modifier.fillMaxSize(), Arrangement.Top, Alignment.CenterHorizontally
+
+        modifier = Modifier
+            .verticalScroll(rememberScrollState()) // Add this line
+            .padding(16.dp)
     ) {
 
         // Healing options
@@ -84,6 +98,13 @@ fun HomePage(
         OptionsGridSection(navController)
 
         Spacer(modifier = Modifier.weight(1f))
+
+        YouTubeSection(navController)
+
+        Spacer(modifier = Modifier.weight(1f))
+
+
+
 
         // Logout Button
         TextButton(onClick = {
@@ -370,8 +391,73 @@ fun OptionsGridSection(navController: NavController) {
                 onClick = { navController.navigate("diseaseAlerts") }
             )
         }
+
+
+
+        // New row for YouTube videos
+    }
+
+}
+@Composable
+fun YouTubeSection(navController: NavController) {
+    val viewModel: YouTubeViewModel = viewModel()
+    val videoList by viewModel.videos.collectAsState()
+
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+
+    ) {
+        Text(
+            text = "Watch YouTube Videos",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 16.dp)        )
+
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(videoList) { video ->
+                YouTubeVideoItem(videoId = "lDOkIrrTEhs")
+                YouTubeVideoItem(videoId = "8QO7YIvSQPc")
+                YouTubeVideoItem(videoId = "ilpcW_dn4lI")
+                YouTubeVideoItem(videoId = "L69l69ApLrw")
+                YouTubeVideoItem(videoId = "1P8xirYNBbE")
+            }
+        }
     }
 }
+
+
+@Composable
+fun YouTubeVideoItem(videoId: String) {
+        val videoUrl = "https://www.youtube.com/embed/$videoId"
+        val lifecycleOwner = LocalLifecycleOwner.current
+        val context = LocalContext.current
+
+            // YouTubePlayerView to display YouTube video
+    AndroidView(
+        modifier = Modifier
+            .size(200.dp)
+            .padding(horizontal = 4.dp),
+        factory = { context ->
+            YouTubePlayerView(context).apply {
+                lifecycleOwner.lifecycle.addObserver(this)
+                addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        youTubePlayer.cueVideo(videoId, 0f)
+                    }
+                })
+            }
+        }
+    )
+}
+
+
+
 
 //@Composable
 //fun OptionCard(iconRes: Int, title: String) {
