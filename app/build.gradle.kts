@@ -120,5 +120,7 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.7.1") // Jetpack Compose dependency
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5")
     implementation("androidx.navigation:navigation-common:2.8.0")
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+
 
 }
