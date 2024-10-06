@@ -6,15 +6,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.apnakhet.AuthViewModel
-import com.example.apnakhet.FertilizerCalculator
+import com.example.apnakhet.pages.FertilizerCalculator
 
-import com.example.apnakhet.imageCaptureFromCamera
-
-import com.example.apnakhet.cultivationTips
+import com.example.apnakhet.pages.cultivationTips
 
 import com.example.apnakhet.login.HomePage
 import com.example.apnakhet.login.LoginPage
 import com.example.apnakhet.login.SignupPage
+import com.example.apnakhet.pages.CommunityScreen
+import com.example.apnakhet.pages.MyAccount
+import com.example.apnakhet.pages.ShopScreen
 
 @Composable
 fun LoginNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
@@ -40,5 +41,11 @@ fun LoginNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel)
         composable("diseaseAlerts") {
             cultivationTips(navController)
         }
+
+
+        composable("community") { CommunityScreen() }
+        composable("shop") { ShopScreen() }
+        composable("you") { MyAccount() }
     })
 }
+

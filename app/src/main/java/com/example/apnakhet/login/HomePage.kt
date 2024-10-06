@@ -1,4 +1,6 @@
 package com.example.apnakhet.login
+
+
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.collectAsState
@@ -50,7 +52,10 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
+import com.example.apnakhet.Items.BottomNavigationBar
+import com.example.apnakhet.Items.TopBar
 import com.example.apnakhet.Weather.WeatherViewModel
+
 import com.example.apnakhet.youtube.YouTubeViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -84,6 +89,8 @@ fun HomePage(
             .padding(16.dp)
     ) {
 
+        Spacer(modifier = Modifier.height(50.dp))
+
         // Healing options
         HealingOptionsSection()
 
@@ -103,7 +110,7 @@ fun HomePage(
 
         Spacer(modifier = Modifier.weight(1f))
 
-
+        OptionsSection(navController)
 
 
         // Logout Button
@@ -112,6 +119,9 @@ fun HomePage(
         }) {
             Text(text = "Sign out", color = Color.Gray)
         }
+
+//        BottomNavigationBar(navController)
+        Spacer(modifier = Modifier.height(30.dp))
     }
 }
 
@@ -353,18 +363,12 @@ fun OptionsGridSection(navController: NavController) {
             OptionCard(
 
                 iconRes = R.drawable.ic_calculator_thin,
-
-
-
                 title = "Fertilizer calculator",
                 onClick = { navController.navigate("fertilizerCalculator") }
             )
             OptionCard(
 
                 iconRes = R.drawable.ic_bug_light,
-
-
-
                 title = "Pests & diseases",
                 onClick = { navController.navigate("pestsDiseases") }
             )
@@ -379,22 +383,17 @@ fun OptionsGridSection(navController: NavController) {
             OptionCard(
 
                 iconRes = R.drawable.ic_light_bulb_tips,
-
                 title = "Cultivation Tips",
                 onClick = { navController.navigate("cultivationTips") }
             )
             OptionCard(
 
                 iconRes = R.drawable.ic_light_warning,
-
                 title = "Pests and Disease Alerts",
                 onClick = { navController.navigate("diseaseAlerts") }
             )
         }
 
-
-
-        // New row for YouTube videos
     }
 
 }
@@ -457,7 +456,68 @@ fun YouTubeVideoItem(videoId: String) {
 }
 
 
+@Composable
+fun OptionsSection(navController: NavController) {
 
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(16.dp), // Apply the same background color
+//        horizontalArrangement = Arrangement.SpaceEvenly // Evenly spread out the icons
+//    ) {
+//        // First Box - Fertilizer Calculator
+//        BoxWithContent(
+//            iconRes = R.drawable.ic_calculator_thin,
+//            title = "Fertilizer Calculator",
+//            onClick = { navController.navigate("fertilizerCalculator") }
+//        )
+//
+//        // Second Box - Pests & Diseases
+//        BoxWithContent(
+//            iconRes = R.drawable.ic_bug_light,
+//            title = "Pests & Diseases",
+//            onClick = { navController.navigate("pestsDiseases") }
+//        )
+//
+//        // Third Box - Cultivation Tips
+//        BoxWithContent(
+//            iconRes = R.drawable.ic_light_bulb_tips,
+//            title = "Cultivation Tips",
+//            onClick = { navController.navigate("cultivationTips") }
+//        )
+//
+//        // Fourth Box - Disease Alerts
+//        BoxWithContent(
+//            iconRes = R.drawable.ic_light_warning,
+//            title = "Disease Alerts",
+//            onClick = { navController.navigate("diseaseAlerts") }
+//        )
+//    }
+
+
+}
+
+@Composable
+fun BoxWithContent(iconRes: Int, title: String, onClick: () -> Unit) {
+    Column(
+        modifier = Modifier
+
+            .padding(8.dp)
+            .clickable(onClick = onClick),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Icon
+        Icon(
+            painter = painterResource(id = iconRes),
+            contentDescription = title,
+            modifier = Modifier
+                .size(48.dp)
+                .padding(bottom = 8.dp)
+        )
+        // Text
+        Text(text = title, style = MaterialTheme.typography.bodyLarge)
+    }
+}
 
 //@Composable
 //fun OptionCard(iconRes: Int, title: String) {
